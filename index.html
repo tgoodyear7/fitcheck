@@ -161,37 +161,37 @@
           
             // Object-based array for weather data
             const clothesData = [
-                { condition: 'sunny', min: 15, max: 40, type: 'head', labsafe:false},//baseball cap
-                { condition: 'cloudy', min: 0, max: 20, type: 'bottom', labsafe: true },//blue pants
-                { condition: 'cloudy', min: -50, max: 50, type: 'shoe', labsafe: true},//converse
-                { condition: 'sunny', min: 20, max: 40, type: 'dress', labsafe: false},//brown dress
-                { condition: 'sunny', min: 20, max: 40, type: 'dress', labsafe: false},//blue dress
-                { condition: 'sunny', min: 20, max: 40, type: 'bottom', labsafe: false},//brown shorts
-                { condition: 'thundery outbreaks possible', min: -40, max: 50, type: 'shoe', labsafe: false},//cros
-                { condition: 'sunny', min: 20, max: 40, type: 'top', labsafe: false},//crop top
-                { condition: 'cloudy', min: 5, max: 40, type: 'shoe', labsafe: true},//cowboy boots
-                { condition: 'sunny',  min: 15, max: 40, type: 'head', labsafe:false},//cowboy hat
-                { condition: 'sunny', min: 20, max: 40, type: 'bottom', labsafe: false},//green shorts
-                { condition: 'rainy', min: 0, max: 20, type: 'bottom', labsafe: true },//green pants
-                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false },//green shirt
-                { condition: 'sunny', min: 15, max: 40, type: 'head', labsafe:false},//hat
-                { condition: 'sunny', min: 15, max: 50, type: 'shoe', labsafe: false},//heels
-                { condition: 'sunny', min: -50, max: 50, type: 'lab', labsafe: true},//lab coat 
-                { condition: 'sunny', min: -50, max: 50, type: 'lab', labsafe: true},//lab goggles
-                { condition: 'windy', min: -50, max: 50, type: 'top', labsafe: true},//longsleve
-                { condition: 'windy', min: -50, max: 50, type: 'bottom', labsafe: true },//pink pants
-                { condition: 'sunny', min: 20, max: 40, type: 'dress', labsafe: false},//pink dress
-                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false },//pink shirt
-                { condition: 'rainy', min: -50, max: 50, type: 'shoe', labsafe: true },//rainboots
-                { condition: 'thundery outbreaks possible', min: -50, max: 50, type: 'shoe', labsafe: true },//rainboots
-                { condition: 'sunny', min: 20, max: 40, type: 'bottom', labsafe: false},//purlple shorts
-                { condition: 'rainy', min: -50, max: 40, type: 'top', labsafe: true},//rain jacket
-                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false },//red shirt
-                { condition: 'windy', min: -50, max: 50, type: 'shoe', labsafe: true},//sneakers
-                { condition: 'snow', min: -50, max: 50, type: 'head', labsafe: false},//toque
-                { condition: 'snow', min: -50, max: 50, type: 'shoe', labsafe: true },//snowboots
-                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false },//yellow shirt
-                { condition: 'snow', min: -50, max: 50, type: 'top', labsafe: true},//winter coat 
+                { condition: 'sunny', min: 15, max: 40, type: 'head', labsafe:false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Ball%20Cap.png?v=1716670646055"},//baseball cap
+                { condition: 'cloudy', min: 0, max: 20, type: 'bottom', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Blue%20Pants.png?v=1716670647315"},//blue pants
+                { condition: 'cloudy', min: -50, max: 50, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Black%20Shoes.png?v=1716670646513"},//converse
+                { condition: 'sunny', min: 20, max: 40, type: 'dress', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Brown%20Dress.png?v=1716670647676"},//brown dress
+                { condition: 'sunny', min: 20, max: 40, type: 'dress', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Blue%20Dress.png?v=1716670646954"},//blue dress
+                { condition: 'sunny', min: 20, max: 40, type: 'bottom', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Brown%20Shorts.png?v=1716670648088"},//brown shorts
+                { condition: 'thundery outbreaks possible', min: -40, max: 50, type: 'shoe', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Crocs.png?v=1716670649229"},//cros
+                { condition: 'sunny', min: 20, max: 40, type: 'top', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Crop%20Top.png?v=1716670649603"},//crop top
+                { condition: 'cloudy', min: 5, max: 40, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Cowboy%20Boots.png?v=1716670648453"},//cowboy boots
+                { condition: 'sunny',  min: 15, max: 40, type: 'head', labsafe:false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Cowboy%20Hat.png?v=1716670648855"},//cowboy hat
+                { condition: 'sunny', min: 20, max: 40, type: 'bottom', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Green%20Shorts.png?v=1716670650373"},//green shorts
+                { condition: 'rainy', min: 0, max: 20, type: 'bottom', labsafe: true, image: "https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Green%20Pants.png?v=1716670650003"},//green pants
+                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false, image: "https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Green%20Shirt.png?v=1716670650828"},//green shirt
+                { condition: 'sunny', min: 15, max: 40, type: 'head', labsafe:false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Hat.png?v=1716670651243"},//hat
+                { condition: 'sunny', min: 15, max: 50, type: 'shoe', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Heels.png?v=1716670637926"},//heels
+                { condition: 'sunny', min: -50, max: 50, type: 'lab', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Lab%20Coat.png?v=1716670638301"},//lab coat 
+                { condition: 'sunny', min: -50, max: 50, type: 'lab', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Lab%20Goggles.png?v=1716670638692"},//lab goggles
+                { condition: 'windy', min: -50, max: 50, type: 'top', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Long%20SLeeve.png?v=1716670639151"},//longsleve
+                { condition: 'windy', min: -50, max: 50, type: 'bottom', labsafe: true, image: "https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Pink%20Pants.png?v=1716670640398"},//pink pants
+                { condition: 'sunny', min: 20, max: 40, type: 'dress', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Pink%20Dress.png?v=1716670639987"},//pink dress
+                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false, image: "https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Pink%20Shirt.png?v=1716670640788"},//pink shirt
+                { condition: 'rainy', min: -50, max: 50, type: 'shoe', labsafe: true, image: "https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Rain%20Boots.png?v=1716670641540"},//rainboots
+                { condition: 'thundery outbreaks possible', min: -50, max: 50, type: 'shoe', labsafe: true , image: "https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Rain%20Boots.png?v=1716670641540"},//rainboots
+                { condition: 'sunny', min: 20, max: 40, type: 'bottom', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Purple%20Shorts.png?v=1716670641172"},//purlple shorts
+                { condition: 'rainy', min: -50, max: 40, type: 'top', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Rain%20Coat.png?v=1716670641956"},//rain jacket
+                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false, image: "https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Red%20Shirt.png?v=1716670642404"},//red shirt
+                { condition: 'windy', min: -50, max: 50, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Sneakers.png?v=1716670643223"},//sneakers
+                { condition: 'snow', min: -50, max: 50, type: 'head', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Touque.png?v=1716670644585"},//toque
+                { condition: 'snow', min: -50, max: 50, type: 'shoe', labsafe: true , image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Winter%20Boots.png?v=1716670644944"},//snowboots
+                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false , image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Yellow%20Skirt.png?v=1716670645686"},//yellow shirt
+                { condition: 'snow', min: -50, max: 50, type: 'top', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Winter%20Coat.png?v=1716670645337"},//winter coat 
                 
                 // Add more weather data objects as needed
             ];
