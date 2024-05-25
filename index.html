@@ -158,6 +158,43 @@
             const weatherIcon = document.getElementById('weatherIcon');
             const weatherSpeech = document.getElementById('weatherSpeech');
             const speechBubble = document.querySelector('.speech-bubble');
+          
+            // Object-based array for weather data
+            const clothesData = [
+                { condition: 'sunny', min: 15, max: 40, type: 'head', labsafe:false},//baseball cap
+                { condition: 'cloudy', min: 0, max: 20, type: 'bottom', labsafe: true },//blue pants
+                { condition: 'cloudy', min: -50, max: 50, type: 'shoe', labsafe: true},//converse
+                { condition: 'sunny', min: 20, max: 40, type: 'dress', labsafe: false},//brown dress
+                { condition: 'sunny', min: 20, max: 40, type: 'dress', labsafe: false},//blue dress
+                { condition: 'sunny', min: 20, max: 40, type: 'bottom', labsafe: false},//brown shorts
+                { condition: 'thundery outbreaks possible', min: -40, max: 50, type: 'shoe', labsafe: false},//cros
+                { condition: 'sunny', min: 20, max: 40, type: 'top', labsafe: false},//crop top
+                { condition: 'cloudy', min: 5, max: 40, type: 'shoe', labsafe: true},//cowboy boots
+                { condition: 'sunny',  min: 15, max: 40, type: 'head', labsafe:false},//cowboy hat
+                { condition: 'sunny', min: 20, max: 40, type: 'bottom', labsafe: false},//green shorts
+                { condition: 'rainy', min: 0, max: 20, type: 'bottom', labsafe: true },//green pants
+                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false },//green shirt
+                { condition: 'sunny', min: 15, max: 40, type: 'head', labsafe:false},//hat
+                { condition: 'sunny', min: 15, max: 50, type: 'shoe', labsafe: false},//heels
+                { condition: 'sunny', min: -50, max: 50, type: 'lab', labsafe: true},//lab coat 
+                { condition: 'sunny', min: -50, max: 50, type: 'lab', labsafe: true},//lab goggles
+                { condition: 'windy', min: -50, max: 50, type: 'top', labsafe: true},//longsleve
+                { condition: 'windy', min: -50, max: 50, type: 'bottom', labsafe: true },//pink pants
+                { condition: 'sunny', min: 20, max: 40, type: 'dress', labsafe: false},//pink dress
+                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false },//pink shirt
+                { condition: 'rainy', min: -50, max: 50, type: 'shoe', labsafe: true },//rainboots
+                { condition: 'thundery outbreaks possible', min: -50, max: 50, type: 'shoe', labsafe: true },//rainboots
+                { condition: 'sunny', min: 20, max: 40, type: 'bottom', labsafe: false},//purlple shorts
+                { condition: 'rainy', min: -50, max: 40, type: 'top', labsafe: true},//rain jacket
+                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false },//red shirt
+                { condition: 'windy', min: -50, max: 50, type: 'shoe', labsafe: true},//sneakers
+                { condition: 'snow', min: -50, max: 50, type: 'head', labsafe: false},//toque
+                { condition: 'snow', min: -50, max: 50, type: 'shoe', labsafe: true },//snowboots
+                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false },//yellow shirt
+                { condition: 'snow', min: -50, max: 50, type: 'top', labsafe: true},//winter coat 
+                
+                // Add more weather data objects as needed
+            ];
 
             // Function to fetch weather data
             function fetchWeather(city) {
