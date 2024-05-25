@@ -9,22 +9,23 @@
             margin: 0;
             font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Aligns items at the top */
+            flex-direction: column; /* Align items vertically */
+            align-items: center; /* Center items horizontally */
             height: 100vh;
-            background-color: lightgray;
+            background-color: rgb(236, 240, 241);
         }
         .banner {
-            background-color: rgb(52, 153, 221);
+            background-color: rgb(52, 153, 221);/*blue*/
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 10px 20px;
-            height: 40px;
+            height: 60px;
             width: 95%; /* Span more of the width */
             max-width: 1200px; /* Optional: to limit the maximum width */
             margin: 20px auto 0 auto; /* Center the banner and add top margin */
+            z-index: 1; /* Ensure the banner is above other elements */
         }
         .banner img {
             height: 40px;
@@ -32,8 +33,33 @@
         }
         .banner h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 32px; /* Adjusted font size for better fit */
             text-align: center;
+        }
+        .weather-banner {
+            background-color: rgb(52, 153, 221);/*blue*/
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            height: 60px;
+            width: 95%; /* Span more of the width */
+            max-width: 1200px; /* Optional: to limit the maximum width */
+            margin: 20px auto 0 auto; /* Center the banner and add top margin */
+            z-index: 1; /* Ensure the banner is above other elements */
+        }
+        .weather-banner img {
+            height: 40px;
+            margin-right: 20px;
+        }
+        .weather-banner p {
+            margin: 0;
+            font-size: 20px; /* Adjusted font size for better fit */
+            text-align: center;
+        }
+        .dropdown {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -42,5 +68,55 @@
         <img src="https://via.placeholder.com/40" alt="Icon">
         <h1>FIT CHECK</h1>
     </div>
+
+    <div class="weather-banner" id="weatherBanner">
+        <img src="https://via.placeholder.com/40" alt="Weather Icon" id="weatherIcon">
+        <p id="weatherText">Loading weather...</p>
+    </div>
+
+    <div class="dropdown">
+        <select id="locationDropdown">
+            <option value="">Select Location</option>
+        </select>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const dropdown = document.getElementById('locationDropdown');
+            const weatherText = document.getElementById('weatherText');
+            const weatherIcon = document.getElementById('weatherIcon');
+
+            // Fetching locations from WeatherAPI
+            fetch('https://api.weatherapi.com/v1/search.json?key=75446ec7e0d042f5997172347242505&q=New%20York')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(location => {
+                        const option = document.createElement('option');
+                        option.text = location.name;
+                        option.value = location.url;
+                        dropdown.add(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching locations:', error);
+                });
+
+            // Fetching weather data from WeatherAPI
+            fetch('https://api.weatherapi.com/v1/current.json?key=75446ec7e0d042f5997172347242505&q=New%20York')
+                .then(response => response.json())
+                .then(data => {
+                    const temp_c = data.current.temp_c;
+                    const condition = data.current.condition.text;
+                    const icon = data.current.condition.icon;
+
+                    weatherText.textContent = `New York: ${temp_c}°C, ${condition}`;
+                    weatherIcon.src = icon;
+                })
+                .catch(error => {
+                    weatherText.textContent = 'Error loading weather data';
+                    console.error('Error fetching weather data:', error);
+                });
+        });
+    </script>
 </body>
 </html>
