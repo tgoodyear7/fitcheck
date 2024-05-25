@@ -140,17 +140,7 @@
         </div>
     </div>
 
-    <div class="grid-container">
-        <div class="grid-item">
-            <img src="https://via.placeholder.com/400" alt="Image 1">
-        </div>
-        <div class="grid-item">
-            <img src="https://via.placeholder.com/400" alt="Image 2">
-        </div>
-        <div class="grid-item">
-            <img src="https://via.placeholder.com/400" alt="Image 3">
-        </div>
-    </div>
+    <div class="grid-container" id="gridContainer"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -158,69 +148,102 @@
             const weatherIcon = document.getElementById('weatherIcon');
             const weatherSpeech = document.getElementById('weatherSpeech');
             const speechBubble = document.querySelector('.speech-bubble');
-          
-            // Object-based array for weather data
+            const gridContainer = document.getElementById('gridContainer');
+            const apiUrl = 'https://api.weatherapi.com/v1/current.json';
+            const apiKey = '75446ec7e0d042f5997172347242505'; // Replace with your API key
+
             const clothesData = [
-                { condition: 'sunny', min: 15, max: 40, type: 'head', labsafe:false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Ball%20Cap.png?v=1716670646055"},//baseball cap
-                { condition: 'cloudy', min: 0, max: 20, type: 'bottom', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Blue%20Pants.png?v=1716670647315"},//blue pants
-                { condition: 'cloudy', min: -50, max: 50, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Black%20Shoes.png?v=1716670646513"},//converse
-                { condition: 'sunny', min: 20, max: 40, type: 'dress', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Brown%20Dress.png?v=1716670647676"},//brown dress
-                { condition: 'sunny', min: 20, max: 40, type: 'dress', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Blue%20Dress.png?v=1716670646954"},//blue dress
-                { condition: 'sunny', min: 20, max: 40, type: 'bottom', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Brown%20Shorts.png?v=1716670648088"},//brown shorts
-                { condition: 'thundery outbreaks possible', min: -40, max: 50, type: 'shoe', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Crocs.png?v=1716670649229"},//cros
-                { condition: 'sunny', min: 20, max: 40, type: 'top', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Crop%20Top.png?v=1716670649603"},//crop top
-                { condition: 'cloudy', min: 5, max: 40, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Cowboy%20Boots.png?v=1716670648453"},//cowboy boots
-                { condition: 'sunny',  min: 15, max: 40, type: 'head', labsafe:false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Cowboy%20Hat.png?v=1716670648855"},//cowboy hat
-                { condition: 'sunny', min: 20, max: 40, type: 'bottom', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Green%20Shorts.png?v=1716670650373"},//green shorts
-                { condition: 'rainy', min: 0, max: 20, type: 'bottom', labsafe: true, image: "https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Green%20Pants.png?v=1716670650003"},//green pants
-                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false, image: "https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Green%20Shirt.png?v=1716670650828"},//green shirt
-                { condition: 'sunny', min: 15, max: 40, type: 'head', labsafe:false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Hat.png?v=1716670651243"},//hat
-                { condition: 'sunny', min: 15, max: 50, type: 'shoe', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Heels.png?v=1716670637926"},//heels
-                { condition: 'sunny', min: -50, max: 50, type: 'lab', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Lab%20Coat.png?v=1716670638301"},//lab coat 
-                { condition: 'sunny', min: -50, max: 50, type: 'lab', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Lab%20Goggles.png?v=1716670638692"},//lab goggles
-                { condition: 'windy', min: -50, max: 50, type: 'top', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Long%20SLeeve.png?v=1716670639151"},//longsleve
-                { condition: 'windy', min: -50, max: 50, type: 'bottom', labsafe: true, image: "https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Pink%20Pants.png?v=1716670640398"},//pink pants
-                { condition: 'sunny', min: 20, max: 40, type: 'dress', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Pink%20Dress.png?v=1716670639987"},//pink dress
-                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false, image: "https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Pink%20Shirt.png?v=1716670640788"},//pink shirt
-                { condition: 'rainy', min: -50, max: 50, type: 'shoe', labsafe: true, image: "https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Rain%20Boots.png?v=1716670641540"},//rainboots
-                { condition: 'thundery outbreaks possible', min: -50, max: 50, type: 'shoe', labsafe: true , image: "https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Rain%20Boots.png?v=1716670641540"},//rainboots
-                { condition: 'sunny', min: 20, max: 40, type: 'bottom', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Purple%20Shorts.png?v=1716670641172"},//purlple shorts
-                { condition: 'rainy', min: -50, max: 40, type: 'top', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Rain%20Coat.png?v=1716670641956"},//rain jacket
-                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false, image: "https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Red%20Shirt.png?v=1716670642404"},//red shirt
-                { condition: 'windy', min: -50, max: 50, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Sneakers.png?v=1716670643223"},//sneakers
-                { condition: 'snow', min: -50, max: 50, type: 'head', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Touque.png?v=1716670644585"},//toque
-                { condition: 'snow', min: -50, max: 50, type: 'shoe', labsafe: true , image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Winter%20Boots.png?v=1716670644944"},//snowboots
-                { condition: 'sunny', min: 0, max: 50, type: 'top', labsafe: false , image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Yellow%20Skirt.png?v=1716670645686"},//yellow shirt
-                { condition: 'snow', min: -50, max: 50, type: 'top', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Winter%20Coat.png?v=1716670645337"},//winter coat 
-                
-                // Add more weather data objects as needed
+                { condition: 'sunny', min: 15, max: 40, type: 'head', labsafe:false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Ball%20Cap.png?v=1716670646055"},
+                { condition: 'cloudy', min: 0, max: 20, type: 'bottom', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Blue%20Pants.png?v=1716670647315"},
+                { condition: 'cloudy', min: -50, max: 50, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Black%20Shoes.png?v=1716670646513"},
+                { condition: 'sunny', min: 20, max: 40, type: 'dress', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Brown%20Dress.png?v=1716670647676"},
+                { condition: 'sunny', min: 20, max: 40, type: 'dress', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Blue%20Dress.png?v=1716670646954"},
+                { condition: 'sunny', min: 20, max: 40, type: 'bottom', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Brown%20Shorts.png?v=1716670648088"},
+                { condition: 'thundery outbreaks possible', min: -40, max: 50, type: 'shoe', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Crocs.png?v=1716670649229"},
+                { condition: 'sunny', min: 20, max: 40, type: 'top', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Croptop.png?v=1716670648560"},
+                { condition: 'snow', min: -20, max: 20, type: 'head', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Deer%20Toque.png?v=1716670649973"},
+                { condition: 'snow', min: -20, max: 20, type: 'head', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Christmas%20Hat.png?v=1716670650341"},
+                { condition: 'snow', min: -20, max: 20, type: 'head', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Deer%20Hat.png?v=1716670650826"},
+                { condition: 'sunny', min: 15, max: 40, type: 'dress', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Flower%20Dress.png?v=1716670651260"},
+                { condition: 'sunny', min: 15, max: 40, type: 'bottom', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Flower%20Shorts.png?v=1716670651707"},
+                { condition: 'sunny', min: 15, max: 40, type: 'head', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Green%20Cap.png?v=1716670652196"},
+                { condition: 'snow', min: -40, max: 0, type: 'head', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Grey%20Toque.png?v=1716670652710"},
+                { condition: 'sunny', min: 15, max: 40, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Heels.png?v=1716670653163"},
+                { condition: 'rain', min: 0, max: 30, type: 'shoe', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Heels%20Rainboots.png?v=1716670653701"},
+                { condition: 'snow', min: -40, max: 0, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Heels%20with%20Socks.png?v=1716670654146"},
+                { condition: 'snow', min: -40, max: 0, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/High%20Heel%20Boots.png?v=1716670654655"},
+                { condition: 'snow', min: -40, max: 0, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Ice%20Skates.png?v=1716670655047"},
+                { condition: 'sunny', min: 20, max: 40, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Ladies%20Sandals.png?v=1716670655486"},
+                { condition: 'snow', min: -20, max: 20, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Ladies%20Winter%20Boots.png?v=1716670655955"},
+                { condition: 'rain', min: 0, max: 20, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Ladybug%20Rainboots.png?v=1716670656378"},
+                { condition: 'sunny', min: 0, max: 50, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Mary%20Janes.png?v=1716670656836"},
+                { condition: 'snow', min: -40, max: 0, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Mens%20Winter%20Boots.png?v=1716670657298"},
+                { condition: 'snow', min: -40, max: 0, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Mens%20Winter%20Shoes.png?v=1716670657746"},
+                { condition: 'cloudy', min: 10, max: 20, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Moccasins.png?v=1716670658194"},
+                { condition: 'rain', min: 0, max: 30, type: 'shoe', labsafe: false, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Orange%20Heels.png?v=1716670658658"},
+                { condition: 'snow', min: -20, max: 20, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Purple%20Winter%20Boots.png?v=1716670659117"},
+                { condition: 'sunny', min: 20, max: 40, type: 'top', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Purple%20Top.png?v=1716670659574"},
+                { condition: 'sunny', min: 0, max: 50, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Red%20Flats.png?v=1716670660085"},
+                { condition: 'cloudy', min: -20, max: 20, type: 'head', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Russian%20Hat.png?v=1716670660530"},
+                { condition: 'rain', min: -20, max: 20, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Rainboots.png?v=1716670660974"},
+                { condition: 'cloudy', min: 0, max: 20, type: 'bottom', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Skinny%20Jeans.png?v=1716670661414"},
+                { condition: 'snow', min: -20, max: 20, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Skinny%20Jeans%20and%20Boots.png?v=1716670661892"},
+                { condition: 'sunny', min: 15, max: 40, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Sneakers.png?v=1716670662332"},
+                { condition: 'cloudy', min: 0, max: 20, type: 'top', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Sweater.png?v=1716670662785"},
+                { condition: 'sunny', min: 20, max: 40, type: 'top', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Tank%20Top.png?v=1716670663272"},
+                { condition: 'rain', min: 0, max: 30, type: 'head', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Umbrella.png?v=1716670663752"},
+                { condition: 'sunny', min: 20, max: 40, type: 'shoe', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Wedges.png?v=1716670664275"},
+                { condition: 'rain', min: 0, max: 20, type: 'top', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Yellow%20Jacket.png?v=1716670664763"},
+                { condition: 'rain', min: 0, max: 20, type: 'top', labsafe: true, image:"https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Yellow%20Raincoat.png?v=1716670665249"},
             ];
 
-            // Function to fetch weather data
-            function fetchWeather(city) {
-                fetch(`https://api.weatherapi.com/v1/current.json?key=75446ec7e0d042f5997172347242505&q=${city}`)
-                    .then(response =>
-response.json())
-                    .then(data => {
-                        const temp_c = data.current.temp_c;
-                        const condition = data.current.condition.text;
-
-                        // Set weather speech text
-                        weatherSpeech.textContent = `Today in ${city} it will be ${condition} with a temperature of ${temp_c}°C`;
-
-                        // Set weather icon based on condition
-                        setWeatherIcon(condition);
-
-                        // Show speech bubble
-                        speechBubble.style.display = 'block';
-                    })
-                    .catch(error => {
-                        weatherSpeech.textContent = 'Error loading weather data';
-                        console.error('Error fetching weather data:', error);
-                    });
+            async function fetchWeatherData(location) {
+                try {
+                    const response = await fetch(`${apiUrl}?key=${apiKey}&q=${location}`);
+                    const data = await response.json();
+                    const condition = data.current.condition.text;
+                    const temperature = data.current.temp_c;
+                    // Update weather icon using the setWeatherIcon function
+                    setWeatherIcon(condition.toLowerCase());
+                    // Update weather speech
+                    weatherSpeech.textContent = `Today in ${location} it is ${condition} and is currently ${temperature}°C`;
+                    speechBubble.style.display = 'block'; // Show speech bubble
+                    // Update grid based on weather conditions and temperature
+                    updateGrid(condition, temperature);
+                } catch (error) {
+                    console.error('Error fetching weather data:', error);
+                    // Handle error
+                }
             }
 
-            // Function to set weather icon based on condition
+
+            // Function to update the grid based on the weather conditions and temperature
+            function updateGrid(condition, temperature) {
+                gridContainer.innerHTML = ''; // Clear existing grid items
+
+                const filteredClothes = clothesData.filter(item => {
+                    return item.condition.toLowerCase() === condition.toLowerCase() &&
+                           temperature >= item.min &&
+                           temperature <= item.max;
+                });
+
+                if (filteredClothes.length === 0) {
+                    gridContainer.innerHTML = '<p>No matching clothes found.</p>';
+                } else {
+                    filteredClothes.forEach(item => {
+                        const gridItem = document.createElement('div');
+                        gridItem.classList.add('grid-item');
+                        const image = document.createElement('img');
+                        image.src = item.image;
+                        const itemName = document.createElement('p');
+                        itemName.textContent = item.type;
+                        gridItem.appendChild(image);
+                        gridItem.appendChild(itemName);
+                        gridContainer.appendChild(gridItem);
+                    });
+                }
+            }
+             // Function to set weather icon based on condition
             function setWeatherIcon(condition) {
                 switch (condition.toLowerCase()) {
                     case 'sunny':
@@ -251,15 +274,24 @@ response.json())
                 }
             }
 
-            // Event listener for dropdown change
-            dropdown.addEventListener('change', function () {
-                const selectedCity = dropdown.value;
-                fetchWeather(selectedCity);
-            });
 
-            // Fetch weather data for default city
-            fetchWeather(dropdown.value);
+            // Event listener for the dropdown change
+            dropdown.addEventListener('change', function () {
+                const selectedLocation = dropdown.value;
+                if (selectedLocation) {
+                    // Call the fetchWeatherData function to get weather data
+                    fetchWeatherData(selectedLocation);
+                } else {
+                    // Reset weather icon, speech, and hide speech bubble
+                    weatherIcon.src = 'https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Title_Icon.png?v=1716664218278';
+                    weatherSpeech.textContent = '';
+                    speechBubble.style.display = 'none';
+                    gridContainer.innerHTML = ''; // Clear grid
+                }
+            });
         });
     </script>
 </body>
 </html>
+
+                   
