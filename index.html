@@ -77,6 +77,16 @@
     <div class="dropdown">
         <select id="locationDropdown">
             <option value="">Select Location</option>
+            <option value="Toronto,Ontario">Toronto, Ontario</option>
+            <option value="Montreal,Quebec">Montreal, Quebec</option>
+            <option value="Vancouver,BritishColumbia">Vancouver, British Columbia</option>
+            <option value="Calgary,Alberta">Calgary, Alberta</option>
+            <option value="Edmonton,Alberta">Edmonton, Alberta</option>
+            <option value="Ottawa,Ontario">Ottawa, Ontario</option>
+            <option value="Winnipeg,Manitoba">Winnipeg, Manitoba</option>
+            <option value="QuebecCity,Quebec">Quebec City, Quebec</option>
+            <option value="Hamilton,Ontario">Hamilton, Ontario</option>
+            <option value="Victoria,BritishColumbia">Victoria, British Columbia</option>
         </select>
     </div>
 
@@ -86,43 +96,32 @@
             const weatherText = document.getElementById('weatherText');
             const weatherIcon = document.getElementById('weatherIcon');
 
-            // Array of cities
-            const cities = [
-                { name: 'Toronto, Ontario', url: 'Toronto,Ontario' },
-                { name: 'Montreal, Quebec', url: 'Montreal,Quebec' },
-                { name: 'Vancouver, British Columbia', url: 'Vancouver,BritishColumbia' },
-                { name: 'Calgary, Alberta', url: 'Calgary,Alberta' },
-                { name: 'Edmonton, Alberta', url: 'Edmonton,Alberta' },
-                { name: 'Ottawa, Ontario', url: 'Ottawa,Ontario' },
-                { name: 'Winnipeg, Manitoba', url: 'Winnipeg,Manitoba' },
-                { name: 'Quebec City, Quebec', url: 'QuebecCity,Quebec' },
-                { name: 'Hamilton, Ontario', url: 'Hamilton,Ontario' },
-                { name: 'Victoria, British Columbia', url: 'Victoria,BritishColumbia' }
-            ];
+            // Function to fetch weather data
+            function fetchWeather(city) {
+                fetch(`https://api.weatherapi.com/v1/current.json?key=75446ec7e0d042f5997172347242505&q=${city}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const temp_c = data.current.temp_c;
+                        const condition = data.current.condition.text;
+                        const icon = data.current.condition.icon;
 
-            // Adding options for each city
-            cities.forEach(city => {
-                const option = document.createElement('option');
-                option.text = city.name;
-                option.value = city.url;
-                dropdown.add(option);
+                        weatherText.textContent = `${city}: ${temp_c}°C, ${condition}`;
+                        weatherIcon.src = icon;
+                    })
+                    .catch(error => {
+                        weatherText.textContent = 'Error loading weather data';
+                        console.error('Error fetching weather data:', error);
+                    });
+            }
+
+            // Event listener for dropdown change
+            dropdown.addEventListener('change', function () {
+                const selectedCity = dropdown.value;
+                fetchWeather(selectedCity);
             });
 
-            // Fetching weather data from WeatherAPI
-            fetch('https://api.weatherapi.com/v1/current.json?key=75446ec7e0d042f5997172347242505&q=Toronto,Ontario')
-                .then(response => response.json())
-                .then(data => {
-                    const temp_c = data.current.temp_c;
-                    const condition = data.current.condition.text;
-                    const icon = data.current.condition.icon;
-
-                    weatherText.textContent = `Toronto, Ontario: ${temp_c}°C, ${condition}`;
-                    weatherIcon.src = icon;
-                })
-                .catch(error => {
-                    weatherText.textContent = 'Error loading weather data';
-                    console.error('Error fetching weather data:', error);
-                });
+            // Fetch weather data for default city
+            fetchWeather(dropdown.value);
         });
     </script>
 </body>
