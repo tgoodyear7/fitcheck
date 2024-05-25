@@ -61,6 +61,29 @@
         .dropdown {
             margin-top: 20px;
         }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            grid-template-rows: auto auto; /* 2 rows */
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .grid-item {
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .grid-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
@@ -88,6 +111,18 @@
             <option value="Hamilton,Ontario">Hamilton, Ontario</option>
             <option value="Victoria,BritishColumbia">Victoria, British Columbia</option>
         </select>
+    </div>
+
+    <div class="grid-container">
+        <div class="grid-item">
+            <img src="https://via.placeholder.com/400" alt="Image 1">
+        </div>
+        <div class="grid-item">
+            <img src="https://via.placeholder.com/400" alt="Image 2">
+        </div>
+        <div class="grid-item">
+            <img src="https://via.placeholder.com/400" alt="Image 3">
+        </div>
     </div>
 
     <script>
