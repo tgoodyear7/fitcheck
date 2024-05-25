@@ -86,30 +86,37 @@
             const weatherText = document.getElementById('weatherText');
             const weatherIcon = document.getElementById('weatherIcon');
 
-            // Fetching locations from WeatherAPI
-            fetch('https://api.weatherapi.com/v1/search.json?key=75446ec7e0d042f5997172347242505&q=New%20York')
-                .then(response => response.json())
-                .then(data => {
-                    data.forEach(location => {
-                        const option = document.createElement('option');
-                        option.text = location.name;
-                        option.value = location.url;
-                        dropdown.add(option);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching locations:', error);
-                });
+            // Array of cities
+            const cities = [
+                { name: 'Toronto, Ontario', url: 'Toronto,Ontario' },
+                { name: 'Montreal, Quebec', url: 'Montreal,Quebec' },
+                { name: 'Vancouver, British Columbia', url: 'Vancouver,BritishColumbia' },
+                { name: 'Calgary, Alberta', url: 'Calgary,Alberta' },
+                { name: 'Edmonton, Alberta', url: 'Edmonton,Alberta' },
+                { name: 'Ottawa, Ontario', url: 'Ottawa,Ontario' },
+                { name: 'Winnipeg, Manitoba', url: 'Winnipeg,Manitoba' },
+                { name: 'Quebec City, Quebec', url: 'QuebecCity,Quebec' },
+                { name: 'Hamilton, Ontario', url: 'Hamilton,Ontario' },
+                { name: 'Victoria, British Columbia', url: 'Victoria,BritishColumbia' }
+            ];
+
+            // Adding options for each city
+            cities.forEach(city => {
+                const option = document.createElement('option');
+                option.text = city.name;
+                option.value = city.url;
+                dropdown.add(option);
+            });
 
             // Fetching weather data from WeatherAPI
-            fetch('https://api.weatherapi.com/v1/current.json?key=75446ec7e0d042f5997172347242505&q=New%20York')
+            fetch('https://api.weatherapi.com/v1/current.json?key=75446ec7e0d042f5997172347242505&q=Toronto,Ontario')
                 .then(response => response.json())
                 .then(data => {
                     const temp_c = data.current.temp_c;
                     const condition = data.current.condition.text;
                     const icon = data.current.condition.icon;
 
-                    weatherText.textContent = `New York: ${temp_c}°C, ${condition}`;
+                    weatherText.textContent = `Toronto, Ontario: ${temp_c}°C, ${condition}`;
                     weatherIcon.src = icon;
                 })
                 .catch(error => {
