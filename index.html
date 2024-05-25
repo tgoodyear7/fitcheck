@@ -21,31 +21,34 @@
             align-items: center;
             justify-content: center;
             padding: 10px 20px;
-            height: 60px;
+            height: 70px;
             width: 95%; /* Span more of the width */
             max-width: 1200px; /* Optional: to limit the maximum width */
             margin: 20px auto 0 auto; /* Center the banner and add top margin */
             z-index: 1; /* Ensure the banner is above other elements */
         }
         .banner img {
-            height: 70px;
+            height: 90px;
             margin-right: 20px;
         }
         .banner h1 {
             margin: 0;
-            font-size: 32px; /* Adjusted font size for better fit */
+            font-size: 60px; /* Adjusted font size for better fit */
             text-align: center;
+            font-family: Georgia, serif; /* Change font family to Georgia */
         }
+
         .weather-banner {
-            background-color: rgb(52, 153, 221);/*blue*/
+            background-color: rgb(236, 240, 241); /* Change background color */
             color: white;
             display: flex;
             align-items: center;
+            justify-content: space-between; /* Align items to the ends */
             padding: 10px 20px;
             height: 60px;
             width: 95%; /* Span more of the width */
             max-width: 1200px; /* Optional: to limit the maximum width */
-            margin: 20px auto 0 auto; /* Center the banner and add top margin */
+            margin: 40px auto 0 auto; /* Center the banner and add top margin */
             z-index: 1; /* Ensure the banner is above other elements */
             position: relative; /* Required for positioning speech bubble */
         }
@@ -64,8 +67,6 @@
             border: 2px solid black; /* Added border for better visibility */
             font-size: 16px; /* Adjust font size as needed */
         }
-
-
         .weather-banner .speech-bubble:before {
             content: '';
             position: absolute;
@@ -79,9 +80,13 @@
             border-bottom: 0;
             margin-top: -5px;
         }
-
         .dropdown {
             margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+        #locationDropdown {
+            margin-left: auto; /* Push dropdown to the right */
         }
         .grid-container {
             display: grid;
@@ -93,7 +98,6 @@
             max-width: 1200px;
             margin: 20px auto;
         }
-
         .grid-item {
             padding: 20px;
             background-color: #ffffff;
@@ -119,22 +123,21 @@
         <div class="speech-bubble">
             <p id="weatherSpeech"></p>
         </div>
-    </div>
-
-    <div class="dropdown">
-        <select id="locationDropdown">
-            <option value="">Select Location</option>
-            <option value="Toronto,Ontario">Toronto, Ontario</option>
-            <option value="Montreal,Quebec">Montreal, Quebec</option>
-            <option value="Vancouver,BritishColumbia">Vancouver, British Columbia</option>
-            <option value="Calgary,Alberta">Calgary, Alberta</option>
-            <option value="Edmonton,Alberta">Edmonton, Alberta</option>
-            <option value="Ottawa,Ontario">Ottawa, Ontario</option>
-            <option value="Winnipeg,Manitoba">Winnipeg, Manitoba</option>
-            <option value="QuebecCity,Quebec">Quebec City, Quebec</option>
-            <option value="Hamilton,Ontario">Hamilton, Ontario</option>
-            <option value="Victoria,BritishColumbia">Victoria, British Columbia</option>
-        </select>
+        <div class="dropdown">
+            <select id="locationDropdown">
+                <option value="">Select Location</option>
+                <option value="Toronto,Ontario">Toronto, Ontario</option>
+                <option value="Montreal,Quebec">Montreal, Quebec</option>
+                <option value="Vancouver,BritishColumbia">Vancouver, British Columbia</option>
+                <option value="Calgary,Alberta">Calgary, Alberta</option>
+                <option value="Edmonton,Alberta">Edmonton, Alberta</option>
+                <option value="Ottawa,Ontario">Ottawa, Ontario</option>
+                <option value="Winnipeg,Manitoba">Winnipeg, Manitoba</option>
+                <option value="QuebecCity,Quebec">Quebec City, Quebec</option>
+                <option value="Hamilton,Ontario">Hamilton, Ontario</option>
+                <option value="Victoria,BritishColumbia">Victoria, British Columbia</option>
+            </select>
+        </div>
     </div>
 
     <div class="grid-container">
@@ -159,7 +162,8 @@
             // Function to fetch weather data
             function fetchWeather(city) {
                 fetch(`https://api.weatherapi.com/v1/current.json?key=75446ec7e0d042f5997172347242505&q=${city}`)
-                    .then(response => response.json())
+                    .then(response =>
+response.json())
                     .then(data => {
                         const temp_c = data.current.temp_c;
                         const condition = data.current.condition.text;
@@ -174,7 +178,7 @@
                         speechBubble.style.display = 'block';
                     })
                     .catch(error => {
-                        weatherText.textContent = 'Error loading weather data';
+                        weatherSpeech.textContent = 'Error loading weather data';
                         console.error('Error fetching weather data:', error);
                     });
             }
@@ -191,7 +195,7 @@
                         break;
                     case 'cloudy':
                     case 'partly cloudy': // Handle partly cloudy condition
-                    case 'overcast'://falls under cloudy
+                    case 'overcast':
                         weatherIcon.src = 'https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Cloudy_Icon.png?v=1716664229586';
                         break;
                     case 'snow':
@@ -200,8 +204,8 @@
                     case 'windy':
                         weatherIcon.src = 'https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Wind_Icon.png?v=1716664237473';
                         break;
-                  case 'thundery outbreaks possible':
-                  case 'moderate or heavy rain with thunder':
+                    case 'thundery outbreaks possible':
+                    case 'moderate or heavy rain with thunder':
                         weatherIcon.src = 'https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/thunder.png?v=1716668423470';
                         break;
                     default:
@@ -209,7 +213,6 @@
                         break;
                 }
             }
-
 
             // Event listener for dropdown change
             dropdown.addEventListener('change', function () {
