@@ -28,7 +28,7 @@
             z-index: 1; /* Ensure the banner is above other elements */
         }
         .banner img {
-            height: 40px;
+            height: 70px;
             margin-right: 20px;
         }
         .banner h1 {
@@ -50,18 +50,22 @@
             position: relative; /* Required for positioning speech bubble */
         }
         .weather-banner img {
-            height: 40px;
+            height: 150px;
             margin-right: 20px;
         }
         .weather-banner .speech-bubble {
             position: absolute;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            border-radius: 10px;
-            padding: 10px 20px;
+            background-color: white;
+            color: black;
+            border-radius: 20px;
+            padding: 20px; /* Increased padding */
             margin-left: 15%; /* Adjust according to your design */
             display: none; /* Initially hide speech bubble */
+            border: 2px solid black; /* Added border for better visibility */
+            font-size: 16px; /* Adjust font size as needed */
         }
+
+
         .weather-banner .speech-bubble:before {
             content: '';
             position: absolute;
@@ -70,11 +74,12 @@
             width: 0;
             height: 0;
             border: 10px solid transparent;
-            border-right-color: rgba(0, 0, 0, 0.7);
+            border-right-color: white; /* Change border color to match background */
             border-left: 0;
             border-bottom: 0;
             margin-top: -5px;
         }
+
         .dropdown {
             margin-top: 20px;
         }
@@ -110,7 +115,7 @@
     </div>
 
     <div class="weather-banner" id="weatherBanner">
-        <img src="https://via.placeholder.com/40" alt="Weather Icon" id="weatherIcon">
+        <img id="weatherIcon" src="https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Title_Icon.png?v=1716664218278" alt="Weather Icon">
         <div class="speech-bubble">
             <p id="weatherSpeech"></p>
         </div>
@@ -147,7 +152,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const dropdown = document.getElementById('locationDropdown');
-            const weatherText = document.getElementById('weatherText');
             const weatherIcon = document.getElementById('weatherIcon');
             const weatherSpeech = document.getElementById('weatherSpeech');
             const speechBubble = document.querySelector('.speech-bubble');
@@ -159,18 +163,53 @@
                     .then(data => {
                         const temp_c = data.current.temp_c;
                         const condition = data.current.condition.text;
-                        const icon = data.current.condition.icon;
 
+                        // Set weather speech text
                         weatherSpeech.textContent = `Today in ${city} it will be ${condition} with a temperature of ${temp_c}°C`;
-                        weatherIcon.src = icon;
-                        speechBubble.style.display
-                        speechBubble.style.display = 'block'; // Show speech bubble
+
+                        // Set weather icon based on condition
+                        setWeatherIcon(condition);
+
+                        // Show speech bubble
+                        speechBubble.style.display = 'block';
                     })
                     .catch(error => {
                         weatherText.textContent = 'Error loading weather data';
                         console.error('Error fetching weather data:', error);
                     });
             }
+
+            // Function to set weather icon based on condition
+            function setWeatherIcon(condition) {
+                switch (condition.toLowerCase()) {
+                    case 'sunny':
+                    case 'clear':
+                        weatherIcon.src = 'https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Sunny_Icon.png?v=1716664204693';
+                        break;
+                    case 'rainy':
+                        weatherIcon.src = 'https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Rain_Icon.png?v=1716664234045';
+                        break;
+                    case 'cloudy':
+                    case 'partly cloudy': // Handle partly cloudy condition
+                    case 'overcast'://falls under cloudy
+                        weatherIcon.src = 'https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Cloudy_Icon.png?v=1716664229586';
+                        break;
+                    case 'snow':
+                        weatherIcon.src = 'https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Snow_Icon.png?v=1716664238354';
+                        break;
+                    case 'windy':
+                        weatherIcon.src = 'https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Wind_Icon.png?v=1716664237473';
+                        break;
+                  case 'thundery outbreaks possible':
+                  case 'moderate or heavy rain with thunder':
+                        weatherIcon.src = 'https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/thunder.png?v=1716668423470';
+                        break;
+                    default:
+                        weatherIcon.src = 'https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Title_Icon.png?v=1716664218278';
+                        break;
+                }
+            }
+
 
             // Event listener for dropdown change
             dropdown.addEventListener('change', function () {
