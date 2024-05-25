@@ -41,22 +41,39 @@
             color: white;
             display: flex;
             align-items: center;
-            justify-content: center;
             padding: 10px 20px;
             height: 60px;
             width: 95%; /* Span more of the width */
             max-width: 1200px; /* Optional: to limit the maximum width */
             margin: 20px auto 0 auto; /* Center the banner and add top margin */
             z-index: 1; /* Ensure the banner is above other elements */
+            position: relative; /* Required for positioning speech bubble */
         }
         .weather-banner img {
             height: 40px;
             margin-right: 20px;
         }
-        .weather-banner p {
-            margin: 0;
-            font-size: 20px; /* Adjusted font size for better fit */
-            text-align: center;
+        .weather-banner .speech-bubble {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 10px;
+            padding: 10px 20px;
+            margin-left: 20px; /* Adjust according to your design */
+            display: none; /* Initially hide speech bubble */
+        }
+        .weather-banner .speech-bubble:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -10px;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-right-color: rgba(0, 0, 0, 0.7);
+            border-left: 0;
+            border-bottom: 0;
+            margin-top: -5px;
         }
         .dropdown {
             margin-top: 20px;
@@ -88,13 +105,15 @@
 </head>
 <body>
     <div class="banner">
-        <img src="https://via.placeholder.com/40" alt="Icon">
+        <img src="https://cdn.glitch.global/c8e7662a-46b5-45d3-a972-2b14484931c0/Title_Icon.png?v=1716664218278" alt="Title_Icon">
         <h1>FIT CHECK</h1>
     </div>
 
     <div class="weather-banner" id="weatherBanner">
         <img src="https://via.placeholder.com/40" alt="Weather Icon" id="weatherIcon">
-        <p id="weatherText">Loading weather...</p>
+        <div class="speech-bubble">
+            <p id="weatherSpeech"></p>
+        </div>
     </div>
 
     <div class="dropdown">
@@ -130,6 +149,8 @@
             const dropdown = document.getElementById('locationDropdown');
             const weatherText = document.getElementById('weatherText');
             const weatherIcon = document.getElementById('weatherIcon');
+            const weatherSpeech = document.getElementById('weatherSpeech');
+            const speechBubble = document.querySelector('.speech-bubble');
 
             // Function to fetch weather data
             function fetchWeather(city) {
@@ -140,8 +161,10 @@
                         const condition = data.current.condition.text;
                         const icon = data.current.condition.icon;
 
-                        weatherText.textContent = `${city}: ${temp_c}°C, ${condition}`;
+                        weatherSpeech.textContent = `Today in ${city} it will be ${condition} with a temperature of ${temp_c}°C`;
                         weatherIcon.src = icon;
+                        speechBubble.style.display
+                        speechBubble.style.display = 'block'; // Show speech bubble
                     })
                     .catch(error => {
                         weatherText.textContent = 'Error loading weather data';
