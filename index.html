@@ -113,6 +113,13 @@
             height: auto;
             border-radius: 8px;
         }
+        #locationDropdown {
+            margin-left: auto; /* Push dropdown to the right */
+            font-size: 20px; /* Increase font size */
+            padding: 10px; /* Add padding */
+            width: 300px; /* Increase width */
+        }
+        
     </style>
 </head>
 <body>
@@ -140,6 +147,10 @@
                 <option value="Hamilton,Ontario">Hamilton, Ontario</option>
                 <option value="Victoria,BritishColumbia">Victoria, British Columbia</option>
             </select>
+          <label id="labSafeCheckboxLabel">
+                <input type="checkbox" id="labSafeCheckbox">
+                Lab Safe
+            </label>
         </div>
     </div>
 
@@ -152,6 +163,7 @@
             const weatherSpeech = document.getElementById('weatherSpeech');
             const speechBubble = document.querySelector('.speech-bubble');
             const gridContainer = document.getElementById('gridContainer');
+            const labSafeCheckbox = document.getElementById('labSafeCheckbox');
             const apiUrl = 'https://api.weatherapi.com/v1/current.json';
             const apiKey = '75446ec7e0d042f5997172347242505'; // Replace with your API key
 
@@ -226,6 +238,17 @@
                 { condition: 'windy', min: -50, max: 50, type: 'upload', labsafe: true, image:"https://cdn.glitch.global/7ca8b430-4d61-4485-bba2-84e0cc214979/clothes.png?v=1716679261077"},//upload button
               
             ];
+            
+          labSafeCheckbox.addEventListener('change', function () {
+                updateWeatherAndClothing();
+            });
+
+            function updateWeatherAndClothing() {
+                const selectedLocation = dropdown.value;
+                if (selectedLocation) {
+                    fetchWeatherData(selectedLocation);
+                }
+            }
 
             async function fetchWeatherData(location) {
                 try {
@@ -246,33 +269,39 @@
                 }
             }
 
-
-            // Function to update the grid based on the weather conditions and temperature
             function updateGrid(condition, temperature) {
-                gridContainer.innerHTML = ''; // Clear existing grid items
-
-                const filteredClothes = clothesData.filter(item => {
-                    return item.condition.toLowerCase() === condition.toLowerCase() &&
-                           temperature >= item.min &&
-                           temperature <= item.max;
+                // Filter clothes based on condition and temperature
+                const filteredClothes = clothesData.filter(clothes => {
+                    return clothes.condition.toLowerCase() === condition.toLowerCase() && 
+                           temperature >= clothes.min && 
+                           temperature <= clothes.max &&
+                           (labSafeCheckbox.checked ? clothes.labsafe : true);
                 });
 
-                if (filteredClothes.length === 0) {
-                    gridContainer.innerHTML = '<p>No matching clothes found.</p>';
-                } else {
-                    filteredClothes.forEach(item => {
-                        const gridItem = document.createElement('div');
-                        gridItem.classList.add('grid-item');
-                        const image = document.createElement('img');
-                        image.src = item.image;
-                        const itemName = document.createElement('p');
-                        itemName.textContent = item.type;
-                        gridItem.appendChild(image);
-                        gridItem.appendChild(itemName);
-                        gridContainer.appendChild(gridItem);
-                    });
-                }
+                // Clear previous grid items
+                gridContainer.innerHTML = '';
+
+                // Create grid items for each filtered clothing item
+                filteredClothes.forEach(clothes => {
+                    const gridItem = document.createElement('div');
+                    gridItem.classList.add('grid-item');
+                    const img = document.createElement('img');
+                    img.src = clothes.image;
+                    gridItem.appendChild(img);
+                    gridContainer.appendChild(gridItem);
+                });
             }
+
+            // Event listener for dropdown change
+            dropdown.addEventListener('change', updateWeatherAndClothing);
+
+            // Event listener for labSafeCheckbox change
+            labSafeCheckbox.addEventListener('change', updateWeatherAndClothing);
+
+            // Initial fetch when the page loads
+            document.addEventListener('DOMContentLoaded', updateWeatherAndClothing);
+          
+          
              // Function to set weather icon based on condition
             function setWeatherIcon(condition) {
                 switch (condition.toLowerCase()) {
